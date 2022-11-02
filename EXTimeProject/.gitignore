@@ -1,0 +1,4 @@
+.idea
+venv
+EXTimeProject/settings.py
+EXTimeProject/__pycache__
