@@ -1,0 +1,50 @@
+body {
+    font-family:Varella Round;
+    background: #f1f1f1;
+}
+
+.gamecard {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.gameicon{
+    max-width: 256px;
+}
+
+.title{
+    font-size: 18px;
+    font-weight: bold;
+    background: #fff;
+    padding: 10px 10px;
+}
+
+.bodytext{
+    padding: 3px 10px ;
+    background: #fff;
+    font-size: 14px;
+    color: #636262;
+}
+
+.buttoncard{
+    display:flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+    btn-bg: #1f487e;
+    color:#fff;
+    border-radius: 0 0 8px 8px;
+}
+
+.buttoncard:hover{
+    text-decoration: none;
+    btn-bg: #1D3461;
+    color:#fff;
+}
+.card {
+    align-items: center;
+}
+
+.gamecard{
+    min-width: 25%;
+}
