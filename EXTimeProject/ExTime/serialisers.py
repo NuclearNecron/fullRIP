@@ -112,11 +112,6 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         fields = ["pk", "serviceid", "user","theme","review_text","rating",]
 
-class RScreenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reviewscreenshot
-
-        fields = ["pk", "reviewid", "pic_name"]
 
 class SScreenSerializer(serializers.ModelSerializer):
     class Meta:

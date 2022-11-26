@@ -34,7 +34,7 @@ dev_router = routers.NestedDefaultRouter(router, r'dev', lookup='dev')
 dev_router.register(r'games', ExTime_views.GameOfDevViewSet, basename='games of dev') #разраб
 
 game_router = routers.NestedSimpleRouter(router, r'games', lookup='game')
-game_router.register(r'services', ExTime_views.ServiceOfGameViewSet, basename='services of game') # услуги
+game_router.register(r'services', ExTime_views.ServiceOfGameViewSet, basename='services of game')
 
 service_router = routers.NestedSimpleRouter(game_router,r'services',lookup='service')
 service_router.register(r'reviews',ExTime_views.ReviewsViewSet, basename='reviews of service')
@@ -43,8 +43,6 @@ service_router.register(r'picture',ExTime_views.SScreenViewSet, basename='pictur
 user_router = routers.NestedSimpleRouter(router, r'users',lookup='user')
 user_router.register(r'services',ExTime_views.ServiceOfUserViewSet,basename='services of user')
 
-review_router = routers.NestedSimpleRouter(service_router,r'reviews',lookup='review')
-review_router.register(r'picture',ExTime_views.RScreenViewSet,basename='picture of review')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -52,7 +50,7 @@ urlpatterns = [
     path('',include(game_router.urls)),
     path('',include(service_router.urls)),
     path('',include(user_router.urls)),
-    path('',include(review_router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
+    path('servprice/<int:gameid>',ExTime_views.get_price_limits)
 ]

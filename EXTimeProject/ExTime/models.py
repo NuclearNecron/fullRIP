@@ -56,13 +56,6 @@ class Reviews(models.Model):
         db_table = 'reviews'
 
 
-class Reviewscreenshot(models.Model):
-    reviewid = models.ForeignKey(Reviews, models.DO_NOTHING, db_column='reviewid')
-    pic_name = models.CharField(max_length=500)
-
-    class Meta:
-        db_table = 'reviewscreenshot'
-
 
 class Servicescreenshot(models.Model):
     serviceid = models.ForeignKey(Service, models.DO_NOTHING, db_column='serviceid')
@@ -78,3 +71,35 @@ class Servicetype(models.Model):
     class Meta:
         db_table = 'servicetype'
 # Create your models here.
+
+
+class Cart(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    service = models.ForeignKey('Service', models.DO_NOTHING)
+    amount = models.IntegerField()
+
+    class Meta:
+        db_table = 'cart'
+
+
+class Status(models.Model):
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = 'status'
+
+
+class Order (models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    status = models.ForeignKey('Status', models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'order'
+
+class orderlist(models.Model):
+    order = models.ForeignKey('Order', models.DO_NOTHING)
+    service = models.ForeignKey('Service', models.DO_NOTHING)
+    amount = models.IntegerField()
+
+    class Meta:
+        db_table = 'orderlist'

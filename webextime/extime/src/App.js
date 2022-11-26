@@ -8,6 +8,7 @@ import GamePage from "./pages/GamePage";
 import {Routes} from "react-router";
 import ServicePage from "./pages/ServicePage";
 import UserPage from "./pages/UserPage";
+import AppBar1 from "./resourses/appbar";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <BrowserRouter basename="/" >
           <div>
               <div className={"mainpage"}>
-                  <Link to="../">Extime</Link>
+                  <AppBar1/>
               </div>
               <Routes>
                   <Route path ="/" element={<HomeGames/>}/>

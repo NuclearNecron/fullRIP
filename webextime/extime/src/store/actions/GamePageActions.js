@@ -1,0 +1,6 @@
+export const setGame = "setGame"
+export const setGameServices = "setGameServices"
+export const setServicePrices = "setServicePrices"
+export const setLoadingStatus = "setLoadingStatus"
+export const setTextFieldValue = "setTextFieldValue"
+export const setSliderValue = "setSliderValue"

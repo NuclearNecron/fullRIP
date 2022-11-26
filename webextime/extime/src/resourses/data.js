@@ -141,23 +141,12 @@ export const getPicsbyService = async(servieid=-1, gameid=-1) => {
     );
 }
 
-export const getPicsbyReview = async(servieid=-1, gameid=-1,reviewID) => {
-    return await fetch (`http://localhost:8000/games/${gameid}/services/${servieid}/reviews/${reviewID}/picture`).then(
-        (response)=>{
-            return response.json();
-        }).catch(()=>{
-            return{
-                resultCount:0,
-                results:[]
-            }
-        }
-    );
-}
+
 
 export const getAllGamesFilter = async(search_value) => {
-    return await fetch ('http://localhost:8000/games').then(
+    return await fetch (`http://localhost:8000/games/?name=${search_value}`).then(
         async (response)=>{
-            return await (await response.json()).filter(games => games.game_name.toLowerCase().match(RegExp(search_value.toLowerCase())));
+            return await (await response.json());
         }).catch(()=>{
             return{
                 resultCount:0,
@@ -167,10 +156,25 @@ export const getAllGamesFilter = async(search_value) => {
     );
 }
 
-export const getServicesbyGameFilter = async(id=-1,search_value) => {
-    return await fetch (`http://localhost:8000/games/${id}/services`).then(
+export const getServicesbyGameFilter = async(id=-1,search_value,min_cost,  max_cost) => {
+    console.log(`http://localhost:8000/games/${id}/services/?name=${search_value}&min_cost=${min_cost}&max_cost=${max_cost}`)
+    return await fetch (`http://localhost:8000/games/${id}/services/?name=${search_value}&min_cost=${min_cost}&max_cost=${max_cost}`).then(
         async (response)=>{
-            return await (await response.json()).filter(services => services.service_name.toLowerCase().match(RegExp(search_value.toLowerCase())));
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+
+export const getServicesPricesbyGame = async(id=-1) => {
+    return await fetch (`http://localhost:8000/servprice/${id}`).then(
+        async (response)=>{
+            return await (await response.json());
         }).catch(()=>{
             return{
                 resultCount:0,
