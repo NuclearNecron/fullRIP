@@ -4,6 +4,8 @@ import * as DevPageMiddlewares from "./midlewares/DevPageMiddlewares"
 import * as UserPageMiddlewares from "./midlewares/UserPageMiddlewares"
 import * as GamePageMiddlewares from "./midlewares/GamePageMiddlewares"
 import * as ServicePageMiddlewares from "./midlewares/ServicePageMiddlewares"
+import * as CartPaggeMiddlewares from "./midlewares/CartPaggeMiddlewares"
+import * as OrderPageMiddlewares from "./midlewares/OrderPageMiddlewares"
 import rootReducer from "./reducers/RootReducer";
 
 const myMiddlewares=[
@@ -14,7 +16,11 @@ const myMiddlewares=[
     GamePageMiddlewares.fetchallservices,
     GamePageMiddlewares.fetchfulllist,
     ServicePageMiddlewares.fetchfullserviceinfo,
-    ServicePageMiddlewares.fetchreviews
+    ServicePageMiddlewares.fetchreviews,
+    CartPaggeMiddlewares.fetchcartinfo,
+    OrderPageMiddlewares.fetchorderinfo,
+    OrderPageMiddlewares.fetchorders,
+    OrderPageMiddlewares.fetchallorders
 ]
 
 const store = configureStore({

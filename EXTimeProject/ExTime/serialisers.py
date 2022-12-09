@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 
 
+
 class DevSerializer(serializers.ModelSerializer):
     class Meta:
         model = Developer
@@ -12,15 +13,10 @@ class DevSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Users
 
-        fields = ["pk", "user_name","icon" ,"email", "password","is_seller"]
+        fields = ["pk", "user_name","is_seller"]
 
-class  GETUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-
-        fields = ["pk", "user_name","icon"]
 
 #для вывода
 class GameSerializer(serializers.ModelSerializer):
@@ -29,7 +25,9 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Games
 
-        fields = ["pk", "game_name", "developer", "icon","total_services"]
+        fields = ["pk", "game_name", "developer", "icon", "total_services"]
+
+
 #ля вывода на сайт
 class GameOfDevSerializer(serializers.ModelSerializer):
     total_services= serializers.IntegerField()
@@ -39,7 +37,7 @@ class GameOfDevSerializer(serializers.ModelSerializer):
         fields = ["pk", "game_name", "developer", "icon","total_services"]
 
 #для ввода в бд
-class PUTGameSerializer(serializers.ModelSerializer):
+class POSTGameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Games
@@ -62,11 +60,9 @@ class STypeSerializer(serializers.ModelSerializer):
 
         fields = ["pk", "typename"]
 
-
 class ServiceSerializer(serializers.ModelSerializer):
-
     game = GETGameSerializer(read_only=True)
-    user = GETUserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
     type = STypeSerializer(read_only=True)
     class Meta:
         model = Service
@@ -75,7 +71,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 class ServiceOfGameSerializer(serializers.ModelSerializer):
 
-    user = GETUserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
     type = STypeSerializer(read_only=True)
     class Meta:
         model = Service
@@ -92,14 +88,14 @@ class ServiceOfUSerSerializer(serializers.ModelSerializer):
         fields = ["pk", "game", "service_name", "user","amount","price","description","type"]
 
 
-class PUTServiceSerializer(serializers.ModelSerializer):
+class POSTServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Service
 
         fields = ["pk", "game", "service_name", "user","amount","price","description","type"]
 
-class PUTReviewSerializer(serializers.ModelSerializer):
+class POSTReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reviews
 
@@ -118,4 +114,72 @@ class SScreenSerializer(serializers.ModelSerializer):
         model = Servicescreenshot
 
         fields = ["pk", "serviceid", "pic_name"]
+
+
+class AUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "password"]
+
+
+class LoginRequestSerializer(serializers.ModelSerializer):
+    model = User
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+
+
+class CartSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer(read_only=True)
+    service = ServiceSerializer(read_only=True)
+
+    class Meta:
+        model = Cart
+        fields = '__all__'
+
+
+class POSTCartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cart
+        fields = '__all__'
+
+class StatusSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Status
+        fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer(read_only=True)
+    status = StatusSerializer(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ["user", "status", "cost", "id"]
+
+
+
+class POSTOrderSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+class OrderlistSerializer(serializers.ModelSerializer):
+
+    order = OrderSerializer(read_only=True)
+    service = ServiceSerializer(read_only=True)
+
+    class Meta:
+        model = orderlist
+        fields = ["order", "service", "amount", "cost", "id"]
+
+
+class POSTOrderlistSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = orderlist
+        fields = '__all__'
 

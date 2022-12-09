@@ -10,9 +10,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useSelector, useDispatch } from "react-redux";
-import { createAction_addToAppBarLinks, createAction_deleteFromAppBarLinks, createAction_setUserStatus } from "../store/actionCreators/AppPageActionCreators"
-//import {Link} from "react-router-dom";
+import {  createAction_setUserStatus,createAction_setAppBarLinks } from "../store/actionCreators/AppPageActionCreators"
 import { useNavigate} from "react-router";
+import {useEffect} from "react";
 
 
 function AppBar1() {
@@ -28,6 +28,28 @@ function AppBar1() {
 
     const navigate =useNavigate()
 
+
+    useEffect(()=>{
+        console.log("trying to load APPBAR");
+        if (userStatus){
+            const base_pages = [
+                {
+                    title: 'Домашняя страница',
+                    link: '/'
+                },
+                {
+                    title: 'Корзина',
+                    link: '../cart'
+                },
+                {
+                    title: 'Мои заказы',
+                    link: '../purchases'
+                }
+            ]
+            dispatch(createAction_setAppBarLinks(base_pages))
+        }},[]);
+
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -37,23 +59,19 @@ function AppBar1() {
     };
 
     const handleLoginLogoutBtnClick = (event) => {
+        console.log(userStatus)
         event.preventDefault()
         if (!userStatus) {
-            dispatch(createAction_setUserStatus(!userStatus))
-            dispatch(createAction_addToAppBarLinks({
-                title: 'Корзина',
-                link: '../cart'
-            }))
-            dispatch(createAction_addToAppBarLinks({
-                title: 'Мои заказы',
-                link: '../purchases'
-            }))
+            navigate('/auth')
         }
         else {
-            dispatch(createAction_setUserStatus(!userStatus))
-            dispatch(createAction_deleteFromAppBarLinks())
-            dispatch(createAction_deleteFromAppBarLinks())
-        }
+            dispatch(createAction_setUserStatus(false))
+            localStorage.setItem('userId', '')
+            localStorage.setItem('accessToken', '')
+            dispatch(createAction_setAppBarLinks([{
+                title: 'Домашняя страница',
+                link: '/'
+            }]))        }
     }
 
 

@@ -5,6 +5,8 @@ import {uiGamePageReducers, cached_dataGamePageReducers} from "./GamePageReducer
 import {uiHomePageReducers, cached_dataHomePageReducers} from "./HomePageReducers";
 import {uiUserPageReducers, cached_dataUserPageReducers} from "./UserPageReducers";
 import { uiAppReducers, cached_dataAppReducers } from "./AppPageReducers";
+import {uiOrderPageReducers, cached_dataOrderPageReducers} from "./OrderPageReducers";
+import { uiCartPageReducers, cached_dataCartPageReducers } from "./CartPageReducers";
 
 
 const rootReducer = combineReducers({
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
         DevPage: cached_dataDevPageReducers,
         ServicePage: cached_dataServicePageReducers,
         UserPage: cached_dataUserPageReducers,
-        AppPage:cached_dataAppReducers
+        AppPage:cached_dataAppReducers,
+        CartPage:cached_dataCartPageReducers,
+        OrderPage:cached_dataOrderPageReducers
     }),
     ui: combineReducers({
         HomePage: uiHomePageReducers,
@@ -22,7 +26,9 @@ const rootReducer = combineReducers({
         DevPage: uiDevPageReducers,
         ServicePage: uiServicePageReducers,
         UserPage: uiUserPageReducers,
-        AppPage:uiAppReducers
+        AppPage:uiAppReducers,
+        CartPage:uiCartPageReducers,
+        OrderPage:uiOrderPageReducers
     })
 })
 

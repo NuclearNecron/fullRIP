@@ -183,3 +183,84 @@ export const getServicesPricesbyGame = async(id=-1) => {
         }
     );
 }
+
+export const getCart = async(id=-1) => {
+    return await fetch (`http://localhost:8000/users/${id}/cart`).then(
+        async (response)=>{
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+export const getCartItem = async(id=-1, item) => {
+    return await fetch (`http://localhost:8000/users/${id}/cart/?service=${item}`).then(
+        async (response)=>{
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+export const getOrders = async(id=-1) => {
+    return await fetch (`http://localhost:8000/users/${id}/order`).then(
+        async (response)=>{
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+export const getOrderlist = async(id=-1,listid) => {
+    return await fetch (`http://localhost:8000/users/${id}/order/${listid}/orderlist`).then(
+        async (response)=>{
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+export const getallOrders = async() => {
+    return await fetch (`http://localhost:8000/Allorder/`).then(
+        async (response)=>{
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+export const getallOrdersFilter = async(status) => {
+    return await fetch (`http://localhost:8000/Allorder/?status=${status}`).then(
+        async (response)=>{
+            return await (await response.json());
+        }).catch(()=>{
+            return{
+                resultCount:0,
+                results:[]
+            }
+        }
+    );
+}
+
+
+

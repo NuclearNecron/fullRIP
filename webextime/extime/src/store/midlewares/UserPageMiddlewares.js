@@ -2,7 +2,10 @@ import * as UserPageActionCreators from "../actionCreators/UserPageActionCreator
 import { getUserbyID, getServicesbyUser} from "../../resourses/data"
 
 export const  fetchfulluserinfo = (id) => async dispatch => {
+    console.log(id)
+
     if (id) {
+        console.log('usermiddle')
         dispatch(UserPageActionCreators.createAction_setLoadingStatus(true))
         const user = await getUserbyID(id)
         const servicelist = await getServicesbyUser(id)

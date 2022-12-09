@@ -1,6 +1,13 @@
 import * as AppPageActions from "../actions/AppPageActions"
 
 
+export const createAction_setAppBarLinks = value => {
+    return {
+        type: AppPageActions.setAppBarLinks,
+        value: value
+    }
+}
+
 export const createAction_setUserStatus = (value) => {
     return {
         type: AppPageActions.setUserStatus,
@@ -21,3 +28,4 @@ export const createAction_deleteFromAppBarLinks = (value) => {
         value: value
     }
 }
+

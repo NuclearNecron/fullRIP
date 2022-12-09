@@ -18,12 +18,21 @@ const initialState = {
         },
         ServicePage:{
             Service:{},
-            screensshots:[],
+            screenshots:[],
             reviews:[]
         },
         App: {
-            userAuthorized: false,
+            userAuthorized: (localStorage.getItem('userId') !== ''),
             userCart: [],
+        },
+        Cart:{
+            fullprice:1,
+            cartitems:[],
+        },
+        Order:{
+            orders:[],
+            orderlist:[],
+            orderid:-1
         }
     },
     ui: {
@@ -52,6 +61,12 @@ const initialState = {
                     link: '../'
                 }
             ],
+        },
+        Cart:{
+            loadingStatus: true
+        },
+        Order:{
+            loadingStatus: true
         }
     }
 }

@@ -14,10 +14,16 @@ function userAuthorizedReducer(state = initialstate.cached_data.App.userAuthoriz
 
 function AppBarLinksReducer(state = initialstate.ui.App.AppBarLinks, action) {
     switch (action.type) {
+        case AppPageActions.setAppBarLinks:
+            return action.value
         case AppPageActions.addToAppBarLinks:
-            return state.concat(action.value)
+            let new_state = state;
+            action.value.forEach(elem => {
+                new_state.push(elem)
+            })
+            return new_state
         case AppPageActions.deleteFromAppBarLinks:
-            return state.slice(0, -1)
+            return state.filter(elem => !action.value.includes(elem))
         default: return state
     }
 }

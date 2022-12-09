@@ -10,7 +10,7 @@ function ServiceReducer(state=initialstate.cached_data.ServicePage.Service,actio
         default: return state
     }
 }
-function ScreenshotsReducer(state=initialstate.cached_data.ServicePage.screensshots,action){
+function ScreenshotsReducer(state=initialstate.cached_data.ServicePage.screenshots,action){
     switch(action.type){
         case ServicePageActions.setScreenshots:
             return action.value
@@ -39,6 +39,6 @@ export const uiServicePageReducers = combineReducers({
 })
 export const cached_dataServicePageReducers = combineReducers({
     Service:ServiceReducer,
-    screensshots:ScreenshotsReducer,
+    screenshots:ScreenshotsReducer,
     reviews:ReviewsReducer,
 })

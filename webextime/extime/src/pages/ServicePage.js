@@ -7,6 +7,7 @@ import UserCard from "../resourses/UserCard";
 import { useSelector, useDispatch } from 'react-redux';
 import BasicBreadcrumbs from "../resourses/breadcrumbs";
 import {fetchfullserviceinfo, fetchreviews} from "../store/midlewares/ServicePageMiddlewares";
+import {getCartItem} from "../resourses/data";
 
 
 
@@ -18,9 +19,59 @@ function ServicePage() {
     const Service = useSelector(state => {
         return state.cached_data.ServicePage.Service
     })
-    const Pics = useSelector(state => state.cached_data.ServicePage.screensshots)
+    const Pics = useSelector(state => state.cached_data.ServicePage.screenshots)
     const Reviews = useSelector(state => state.cached_data.ServicePage.reviews)
     const dispatch = useDispatch()
+    const CartAdd = async(service_id) =>{
+        const userid = localStorage.getItem('userId')
+        const cartitem = await getCartItem(userid,service_id)
+        if (cartitem.length==0){
+            const data_to_send = {
+                "user": userid-0,
+                "service": service_id-0,
+                "amount": 1
+            }
+            await fetch(`http://localhost:8000/POSTcart/`,{
+                method: 'POST',
+                headers:{
+                    'Authorization':` Bearer ${localStorage.getItem('accessToken')}`,
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(data_to_send)
+            }).then((response) => {
+                console.log(response)
+                console.log(data_to_send)
+            })
+                .catch((reason) => {
+                    console.log(reason)
+                    console.log(data_to_send)
+                })
+        }
+        else{
+            const key = cartitem[0].id
+            const data_to_send = {
+                "user": userid-0,
+                "service": service_id-0,
+                "amount": cartitem[0].amount+1
+            }
+            await fetch(`http://localhost:8000/POSTcart/${key}/`,{
+                method: 'PUT',
+                headers:{
+                    'Authorization':` Bearer ${localStorage.getItem('accessToken')}`,
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(data_to_send)
+            }).then((response) => {
+                console.log(response)
+                console.log(data_to_send)
+            })
+                .catch((reason) => {
+                    console.log(reason)
+                    console.log(data_to_send)
+                })
+        }
+        dispatch(fetchfullserviceinfo(gameid,serviceid))
+    }
 
 
 
@@ -62,7 +113,9 @@ function ServicePage() {
                                         <div className={"amount"}>В наличии: {Service.amount}</div>
                                         <div className={"price"}>Стоимость: {Service.price} руб.</div>
                                         {Service.amount <= 0 ? <Button className={"button"} disabled>Добавить к покупкам</Button>:
-                                            <Button className={"button"} >Добавить к покупкам</Button>}
+                                            <Button className={"button"} onClick={(event=>{
+                                                CartAdd(serviceid)
+                                            })}>Добавить к покупкам</Button>}
                                     </div>
                                     <div className={"seller"}>
                                         <UserCard {...Service.user}/>
